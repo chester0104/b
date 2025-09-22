@@ -3,14 +3,8 @@ import connectDB from '@/lib/mongodb';
 import ComicBook from '@/models/ComicBook';
 import mongoose from 'mongoose';
 
-interface Context {
-  params: {
-    id: string;
-  };
-}
-
-export async function GET(request: Request, context: Context) {
-  const { id } = context.params;
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return NextResponse.json({ message: 'Invalid comic ID format' }, { status: 400 });
@@ -25,18 +19,18 @@ export async function GET(request: Request, context: Context) {
     }
 
     return NextResponse.json(comic, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error fetching comic with ID ${id}:`, error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    if (error.name === 'CastError') { // Mongoose CastError for invalid ID format during query
+    if (error?.name === 'CastError') { // Mongoose CastError for invalid ID format during query
         return NextResponse.json({ message: 'Invalid comic ID format', error: errorMessage }, { status: 400 });
     }
     return NextResponse.json({ message: 'Failed to fetch comic', error: errorMessage }, { status: 500 });
   }
 }
 
-export async function PUT(request: Request, context: Context) {
-  const { id } = context.params;
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return NextResponse.json({ message: 'Invalid comic ID format' }, { status: 400 });
@@ -59,21 +53,21 @@ export async function PUT(request: Request, context: Context) {
     }
 
     return NextResponse.json(updatedComic, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error updating comic with ID ${id}:`, error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    if (error.name === 'ValidationError') {
+    if (error?.name === 'ValidationError') {
       return NextResponse.json({ message: 'Validation failed', errors: error.errors }, { status: 400 });
     }
-    if (error.name === 'CastError') {
+    if (error?.name === 'CastError') {
       return NextResponse.json({ message: 'Invalid comic ID format or data', error: errorMessage }, { status: 400 });
     }
     return NextResponse.json({ message: 'Failed to update comic', error: errorMessage }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request, context: Context) {
-  const { id } = context.params;
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return NextResponse.json({ message: 'Invalid comic ID format' }, { status: 400 });
@@ -88,10 +82,10 @@ export async function DELETE(request: Request, context: Context) {
     }
 
     return NextResponse.json({ message: 'Comic deleted successfully', comic: deletedComic }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error deleting comic with ID ${id}:`, error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-     if (error.name === 'CastError') { // Should be caught by isValid check, but good as a safeguard
+     if (error?.name === 'CastError') { // Should be caught by isValid check, but good as a safeguard
         return NextResponse.json({ message: 'Invalid comic ID format', error: errorMessage }, { status: 400 });
     }
     return NextResponse.json({ message: 'Failed to delete comic', error: errorMessage }, { status: 500 });
