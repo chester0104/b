@@ -1,4 +1,3 @@
-import { expect, test, describe } from "bun:test";
 import { add, subtract } from "./math";
 
 describe("Math Utilities", () => {
