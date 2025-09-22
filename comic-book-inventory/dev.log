@@ -1,0 +1,84 @@
+nohup: ignoring input
+
+> comic-book-inventory@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://172.30.0.2:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 775ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1548ms
+ HEAD / 200 in 1754ms
+ ✓ Compiled /api/comics in 406ms
+MongoDB: Attempting to connect...
+MongoDB: Connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (src/lib/mongodb.ts:47:18)
+    at async GET (src/app/api/comics/route.ts:7:4)
+  45 |
+  46 |   try {
+> 47 |     cached.conn = await cached.promise;
+     |                  ^
+  48 |   } catch (e) {
+  49 |     cached.promise = null; // Ensure promise is nullified on error so next call tries to reconnect
+  50 |     throw e; {
+  errorLabelSet: Set(0) {},
+  reason: [TopologyDescription],
+  code: undefined,
+  [cause]: [TopologyDescription]
+}
+Error fetching comics: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (src/lib/mongodb.ts:47:18)
+    at async GET (src/app/api/comics/route.ts:7:4)
+  45 |
+  46 |   try {
+> 47 |     cached.conn = await cached.promise;
+     |                  ^
+  48 |   } catch (e) {
+  49 |     cached.promise = null; // Ensure promise is nullified on error so next call tries to reconnect
+  50 |     throw e; {
+  errorLabelSet: Set(0) {},
+  reason: [TopologyDescription],
+  code: undefined,
+  [cause]: [TopologyDescription]
+}
+ GET /api/comics 500 in 30774ms
+MongoDB: Attempting to connect...
+MongoDB: Connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (src/lib/mongodb.ts:47:18)
+    at async GET (src/app/api/comics/route.ts:7:4)
+  45 |
+  46 |   try {
+> 47 |     cached.conn = await cached.promise;
+     |                  ^
+  48 |   } catch (e) {
+  49 |     cached.promise = null; // Ensure promise is nullified on error so next call tries to reconnect
+  50 |     throw e; {
+  errorLabelSet: Set(0) {},
+  reason: [TopologyDescription],
+  code: undefined,
+  [cause]: [TopologyDescription]
+}
+Error fetching comics: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
+    at <unknown> (MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017)
+    at async connectDB (src/lib/mongodb.ts:47:18)
+    at async GET (src/app/api/comics/route.ts:7:4)
+  45 |
+  46 |   try {
+> 47 |     cached.conn = await cached.promise;
+     |                  ^
+  48 |   } catch (e) {
+  49 |     cached.promise = null; // Ensure promise is nullified on error so next call tries to reconnect
+  50 |     throw e; {
+  errorLabelSet: Set(0) {},
+  reason: [TopologyDescription],
+  code: undefined,
+  [cause]: [TopologyDescription]
+}
+ GET /api/comics 500 in 30114ms
